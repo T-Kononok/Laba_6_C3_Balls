@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -35,7 +36,7 @@ public class Field extends JPanel {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
-    void addBall() {
+    void addBall() throws IOException {
         balls.add(new BouncingBall(this));
     }
 

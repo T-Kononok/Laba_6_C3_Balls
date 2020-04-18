@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -24,7 +25,8 @@ public class MainFrame extends JFrame {
         setJMenuBar(menuBar);
         JMenuItem ballItem = new JMenuItem("Добавить мяч");
         ballItem.addActionListener(ev -> {
-            field.addBall();
+            try { field.addBall(); }
+            catch (IOException e) { e.printStackTrace(); }
             if (!pauseMenuItem.isEnabled() && !resumeMenuItem.isEnabled()) {
                 pauseMenuItem.setEnabled(true);
             }

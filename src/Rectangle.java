@@ -1,10 +1,8 @@
-import javafx.util.Pair;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 public class Rectangle implements Runnable {
 
@@ -55,9 +53,9 @@ public class Rectangle implements Runnable {
     void paint(Graphics2D canvas) {
         canvas.setColor(color);
         canvas.setPaint(color);
-        Rectangle2D.Double ball = new Rectangle2D.Double(x, y, WIDTH, HEIGHT);
-        canvas.draw(ball);
-        canvas.fill(ball);
+        RoundRectangle2D rect = new RoundRectangle2D.Float((float) x, (float) y, WIDTH, HEIGHT, 50, 50);
+        canvas.draw(rect);
+        canvas.fill(rect);
     }
 
     boolean getMoved() {

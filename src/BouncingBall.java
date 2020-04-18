@@ -1,6 +1,8 @@
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class BouncingBall implements Runnable {
 
@@ -9,14 +11,14 @@ public class BouncingBall implements Runnable {
     private static final int MAX_SPEED = 15;
     private Field field;
     private int radius;
-    private Color color;
     private double x;
     private double y;
     private int speed;
     private double speedX;
     private double speedY;
+    private BufferedImage image;
 
-    BouncingBall(Field field) {
+    BouncingBall(Field field) throws IOException {
 
         this.field = field;
         radius = (int) (Math.random() * (MAX_RADIUS - MIN_RADIUS)) + MIN_RADIUS;
@@ -26,8 +28,7 @@ public class BouncingBall implements Runnable {
         double angle = Math.random()*2*Math.PI;
         speedX = 3*Math.cos(angle);
         speedY = 3*Math.sin(angle);
-        color = new Color((float)Math.random(), (float)Math.random(),
-                (float)Math.random());
+        image = ImageIO.read(new File("D:/Джава/Laba_6_C3_Balls/ball" + (int)(Math.random()*8) + ".png"));
         x = Math.random()*(field.getSize().getWidth()-2*radius) + radius;
         y = Math.random()*(field.getSize().getHeight()-2*radius) + radius;
         Thread thisThread = new Thread(this);
@@ -73,11 +74,8 @@ public class BouncingBall implements Runnable {
     }
 
     void paint(Graphics2D canvas) {
-        canvas.setColor(color);
-        canvas.setPaint(color);
-        Ellipse2D.Double ball = new Ellipse2D.Double(x-radius, y-radius, 2*radius, 2*radius);
-        canvas.draw(ball);
-        canvas.fill(ball);
+
+        canvas.drawImage(image,(int) x-radius, (int) y-radius, 2*radius,2*radius, null);
     }
 }
 
