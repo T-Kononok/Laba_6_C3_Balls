@@ -56,6 +56,16 @@ public class BouncingBall implements Runnable {
                 } else {
                     x += speedX;
                     y += speedY;
+                    for (Rectangle rectangle : field.getRectangles()) {
+                        if (rectangle.edgeX(x, y, radius, speedX, speedY) != 0) {
+                            x = rectangle.edgeX(x, y, radius, speedX, speedY);
+                            speedX = -speedX;
+                        }
+                        if (rectangle.edgeY(x, y, radius, speedX, speedY) != 0) {
+                            y = rectangle.edgeY(x, y, radius, speedX, speedY);
+                            speedY = -speedY;
+                        }
+                    }
                 }
                 Thread.sleep(16-speed);
             }

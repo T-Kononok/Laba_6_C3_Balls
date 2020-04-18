@@ -31,12 +31,7 @@ public class MainFrame extends JFrame {
         });
         menuBar.add(ballItem);
         JMenuItem rectangleItem = new JMenuItem("Добавить препятствие");
-        rectangleItem.addActionListener(ev -> {
-            field.addBall();
-            if (!pauseMenuItem.isEnabled() && !resumeMenuItem.isEnabled()) {
-                pauseMenuItem.setEnabled(true);
-            }
-        });
+        rectangleItem.addActionListener(ev -> field.addRectangle());
         menuBar.add(rectangleItem);
 
         pauseMenuItem.addActionListener(ev -> {
