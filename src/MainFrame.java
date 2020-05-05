@@ -8,7 +8,8 @@ import javax.swing.JMenuItem;
 public class MainFrame extends JFrame {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
-    private JMenuItem pauseMenuItem = new JMenuItem("Приостановить движение");
+    private JMenuItem pauseMenuItem = new JMenuItem("Остановить всех");
+    private JMenuItem pauseRandMenuItem = new JMenuItem("Остановить случайного");
     private JMenuItem resumeMenuItem = new JMenuItem("Возобновить движение");
     private Field field = new Field();
 
@@ -27,9 +28,8 @@ public class MainFrame extends JFrame {
         ballItem.addActionListener(ev -> {
             try { field.addBall(); }
             catch (IOException e) { e.printStackTrace(); }
-            if (!pauseMenuItem.isEnabled() && !resumeMenuItem.isEnabled()) {
-                pauseMenuItem.setEnabled(true);
-            }
+            pauseMenuItem.setEnabled(true);
+            pauseRandMenuItem.setEnabled(true);
         });
         menuBar.add(ballItem);
         JMenuItem rectangleItem = new JMenuItem("Добавить препятствие");
@@ -39,14 +39,25 @@ public class MainFrame extends JFrame {
         pauseMenuItem.addActionListener(ev -> {
             field.pause();
             pauseMenuItem.setEnabled(false);
+            pauseRandMenuItem.setEnabled(false);
             resumeMenuItem.setEnabled(true);
         });
         menuBar.add(pauseMenuItem);
         pauseMenuItem.setEnabled(false);
 
+        pauseRandMenuItem.addActionListener(ev -> {
+            field.pauseRand();
+            pauseMenuItem.setEnabled(true);
+            pauseRandMenuItem.setEnabled(false);
+            resumeMenuItem.setEnabled(true);
+        });
+        menuBar.add(pauseRandMenuItem);
+        pauseRandMenuItem.setEnabled(false);
+
         resumeMenuItem.addActionListener(ev -> {
             field.resume();
             pauseMenuItem.setEnabled(true);
+            pauseRandMenuItem.setEnabled(true);
             resumeMenuItem.setEnabled(false);
         });
         menuBar.add(resumeMenuItem);

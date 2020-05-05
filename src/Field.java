@@ -7,6 +7,8 @@ import javax.swing.Timer;
 public class Field extends JPanel {
 
     private boolean paused;
+    private boolean pausedRand;
+    private int pausedBall;
     private ArrayList<BouncingBall> balls = new ArrayList<>(10);
     private ArrayList<Rectangle> rectangles = new ArrayList<>(10);
     private Rectangle mov = null;
@@ -48,8 +50,14 @@ public class Field extends JPanel {
         paused = true;
     }
 
+    void pauseRand() {
+        pausedRand = true;
+        pausedBall = (int) (Math.random() * balls.size());
+    }
+
     synchronized void resume() {
         paused = false;
+        pausedRand = false;
         notifyAll();
     }
 
@@ -57,9 +65,13 @@ public class Field extends JPanel {
         return rectangles;
     }
 
-    synchronized void canMove() throws InterruptedException {
+    synchronized void canMove(BouncingBall ball) throws InterruptedException {
         if (paused) {
             wait();
+        } else {
+            if (pausedRand && balls.get(pausedBall).equals(ball)) {
+                wait();
+            }
         }
     }
 }

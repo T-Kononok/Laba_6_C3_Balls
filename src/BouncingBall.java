@@ -38,7 +38,7 @@ public class BouncingBall implements Runnable {
     public void run() {
         try {
             while(true) {
-                field.canMove();
+                field.canMove(this);
                 if (x + speedX <= radius) {
                     speedX = -speedX;
                     x = radius;
